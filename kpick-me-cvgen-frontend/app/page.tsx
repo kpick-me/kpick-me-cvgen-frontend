@@ -5,13 +5,13 @@ import {
   FileTextIcon,
   DownloadIcon,
   VideoIcon,
-  BrainIcon,
   LayoutDashboardIcon,
   CheckCircleIcon,
   GoogleIcon,
   MenuIcon,
   XIcon,
   ChevronRightIcon,
+  SkillIcon,
 } from '@/components/ui/icons';
 import { Logo } from '@/components/ui/logo';
 
@@ -45,7 +45,7 @@ export default function Home() {
       iconColor: "text-purple-600",
     },
     {
-      icon: <BrainIcon className="w-6 h-6" />,
+      icon: <SkillIcon className="w-6 h-6" />,
       title: "Skills Training",
       description: "Interactive coding and professional challenges.",
       className: "md:col-span-2",
@@ -191,7 +191,7 @@ export default function Home() {
         </div>
         <div className="bg-white border border-neutral-200/70 p-8 sm:p-10 rounded-2xl shadow-xl">
           <div className="mb-4 text-green-600">
-            <BrainIcon className="w-8 h-8" />
+            <SkillIcon className="w-8 h-8" />
           </div>
           <h2 className="text-2xl font-bold mb-4 text-neutral-900">Skills Training</h2>
           <p className="mb-6 text-neutral-600">
@@ -240,7 +240,7 @@ export default function Home() {
                   <VideoIcon className="w-5 h-5" /> <span>Interviews</span>
                 </div>
                 <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-neutral-100 text-neutral-600 font-medium">
-                  <BrainIcon className="w-5 h-5" /> <span>Skills</span>
+                  <SkillIcon className="w-5 h-5" /> <span>Skills</span>
                 </div>
               </div>
             </div>
