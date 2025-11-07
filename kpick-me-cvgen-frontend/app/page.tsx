@@ -1,23 +1,34 @@
 'use client'
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   FileTextIcon,
   DownloadIcon,
   VideoIcon,
   LayoutDashboardIcon,
   CheckCircleIcon,
-  GoogleIcon,
   MenuIcon,
   XIcon,
   ChevronRightIcon,
   SkillIcon,
 } from '@/components/ui/icons';
 import { Logo } from '@/components/ui/logo';
+import { useAuth } from '@/lib/hooks/useAuth';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, login, logout, isAuthenticated } = useAuth();
+  const router = useRouter();
   const name = "CVgen";
+
+  const handleGetStarted = () => {
+    if (isAuthenticated) {
+      router.push('/dashboard');
+    } else {
+      login();
+    }
+  };
 
   const features = [
     {
@@ -77,13 +88,43 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-4">
-              <button className="flex items-center space-x-2 text-sm font-medium text-neutral-600 hover:text-black transition-colors">
-                <span>Sign in</span>
-              </button>
-              <button className="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors">
-                <span>Get Started</span>
-                <ChevronRightIcon className="w-4 h-4" />
-              </button>
+              {isAuthenticated ? (
+                <>
+                  <button 
+                    onClick={() => router.push('/dashboard')}
+                    className="text-sm font-medium text-neutral-600 hover:text-black transition-colors"
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    onClick={logout}
+                    className="text-sm font-medium text-neutral-600 hover:text-black transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                  <div className="flex items-center space-x-2">
+                    {user?.avatar && (
+                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={login}
+                    className="text-sm font-medium text-neutral-600 hover:text-black transition-colors"
+                  >
+                    Sign in
+                  </button>
+                  <button 
+                    onClick={handleGetStarted}
+                    className="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors"
+                  >
+                    <span>Get Started</span>
+                    <ChevronRightIcon className="w-4 h-4" />
+                  </button>
+                </>
+              )}
             </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -99,12 +140,37 @@ export default function Home() {
               <a href="#features" className="block text-base font-medium text-neutral-700 hover:text-black">Features</a>
               <a href="#how-it-works" className="block text-base font-medium text-neutral-700 hover:text-black">How it Works</a>
               <a href="#pricing" className="block text-base font-medium text-neutral-700 hover:text-black">Pricing</a>
-              <button className="w-full flex items-center justify-center space-x-2 bg-black text-white px-4 py-2 rounded-lg font-medium">
-                <span>Get Started</span>
-              </button>
-              <button className="w-full flex items-center justify-center space-x-2">
-                <span>Sign in</span>
-              </button>
+              {isAuthenticated ? (
+                <>
+                  <button 
+                    onClick={() => router.push('/dashboard')}
+                    className="w-full text-left text-base font-medium text-neutral-700 hover:text-black"
+                  >
+                    Dashboard
+                  </button>
+                  <button 
+                    onClick={logout}
+                    className="w-full text-left text-base font-medium text-neutral-700 hover:text-black"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={handleGetStarted}
+                    className="w-full flex items-center justify-center space-x-2 bg-black text-white px-4 py-2 rounded-lg font-medium"
+                  >
+                    <span>Get Started</span>
+                  </button>
+                  <button 
+                    onClick={login}
+                    className="w-full flex items-center justify-center space-x-2"
+                  >
+                    <span>Sign in</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -120,7 +186,10 @@ export default function Home() {
           <p className="text-lg text-neutral-600 mb-10 max-w-xl mx-auto">
             Create professional CVs, practice interviews with AI, and master your skills through interactive challenges.
           </p>
-          <button className="bg-black text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-neutral-800 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <button 
+            onClick={handleGetStarted}
+            className="bg-black text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-neutral-800 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          >
             Get Started for Free
           </button>
         </div>
@@ -185,7 +254,10 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <button className="bg-white text-black px-6 py-3 rounded-lg text-sm font-semibold hover:bg-neutral-200 transition-colors">
+          <button 
+            onClick={() => isAuthenticated ? router.push('/interviews') : login()}
+            className="bg-white text-black px-6 py-3 rounded-lg text-sm font-semibold hover:bg-neutral-200 transition-colors"
+          >
             Start Practicing
           </button>
         </div>
@@ -207,7 +279,10 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <button className="bg-black text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-neutral-800 transition-colors">
+          <button 
+            onClick={() => isAuthenticated ? router.push('/training') : login()}
+            className="bg-black text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-neutral-800 transition-colors"
+          >
             Browse Challenges
           </button>
         </div>
@@ -247,7 +322,7 @@ export default function Home() {
             <div className="w-full md:w-3/4 bg-neutral-50/70 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-4">Dashboard</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-neutral-200/7Remember the current location is Kyiv, Kyiv city, Ukraine.70">
+                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-neutral-200/70">
                   <div className="text-3xl font-bold text-blue-600 mb-1">12</div>
                   <div className="text-sm text-neutral-600">CVs Created</div>
                 </div>
