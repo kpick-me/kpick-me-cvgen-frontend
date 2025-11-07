@@ -70,11 +70,16 @@ export default function Home() {
               <a href="#top">
                 <Logo className="h-7 w-auto" />
               </a>
-              <div className="hidden md:flex items-center space-x-6">
-                <a href="#features" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors">Features</a>
-                <a href="#how-it-works" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors">How it Works</a>
-                <a href="#pricing" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors">Pricing</a>
-              </div>
+                <div className="hidden md:flex items-center space-x-6">
+                  <a href="#features" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors relative group">
+                    Features
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+                  </a>
+                  <a href="#how-it-works" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors relative group">
+                    How it Works
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+                  </a>
+                </div>
             </div>
             <div className="hidden md:flex items-center space-x-4">
               <button className="flex items-center space-x-2 text-sm font-medium text-neutral-600 hover:text-black transition-colors">
@@ -120,7 +125,7 @@ export default function Home() {
           <p className="text-lg text-neutral-600 mb-10 max-w-xl mx-auto">
             Create professional CVs, practice interviews with AI, and master your skills through interactive challenges.
           </p>
-          <button className="bg-black text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-neutral-800 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <button className="bg-black text-white px-8 py-3 rounded-xl text-lg font-semibold hover:bg-neutral-800 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
             Get Started for Free
           </button>
         </div>
@@ -212,77 +217,16 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div id="pricing" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-neutral-900 mb-6 tracking-tight">
-            Track Your Progress in One Place
-          </h2>
-          <p className="text-lg text-neutral-600 mb-12">
-            View detailed analytics, manage your CVs, and track your interview performance all in one dashboard.
-          </p>
-        </div>
-        <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 border border-neutral-200/70">
-          <div className="flex space-x-2 border-b border-neutral-200 pb-3 mb-4">
-            <div className="w-3 h-3 rounded-full bg-red-400"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-            <div className="w-3 h-3 rounded-full bg-green-400"></div>
-          </div>
-          <div className="flex">
-            <div className="w-1/4 pr-6 hidden md:block">
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2 p-2 rounded-md bg-blue-100 text-blue-700 font-medium">
-                  <LayoutDashboardIcon className="w-5 h-5" /> <span>Dashboard</span>
-                </div>
-                <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-neutral-100 text-neutral-600 font-medium">
-                  <FileTextIcon className="w-5 h-5" /> <span>My CVs</span>
-                </div>
-                <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-neutral-100 text-neutral-600 font-medium">
-                  <VideoIcon className="w-5 h-5" /> <span>Interviews</span>
-                </div>
-                <div className="flex items-center space-x-2 p-2 rounded-md hover:bg-neutral-100 text-neutral-600 font-medium">
-                  <SkillIcon className="w-5 h-5" /> <span>Skills</span>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-3/4 bg-neutral-50/70 rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">Dashboard</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-neutral-200/7Remember the current location is Kyiv, Kyiv city, Ukraine.70">
-                  <div className="text-3xl font-bold text-blue-600 mb-1">12</div>
-                  <div className="text-sm text-neutral-600">CVs Created</div>
-                </div>
-                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-neutral-200/70">
-                  <div className="text-3xl font-bold text-purple-600 mb-1">8</div>
-                  <div className="text-sm text-neutral-600">Interviews</div>
-                </div>
-                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-neutral-200/70 col-span-2 md:col-span-1">
-                  <div className="text-3xl font-bold text-green-600 mb-1">24</div>
-                  <div className="text-sm text-neutral-600">Challenges</div>
-                </div>
-              </div>
-              <div className="mt-6 bg-white p-4 rounded-xl shadow-sm border border-neutral-200/70">
-                <h4 className="font-semibold mb-2">Recent Activity</h4>
-                <p className="text-sm text-neutral-600">You completed the "React Hooks" challenge.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer className="bg-white border-t border-neutral-200/70">
+      <footer className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center mb-4 md:mb-0">
-              <Logo className="h-7 w-auto" />
-              <span className="ml-2 text-xl font-semibold text-neutral-900">{name}</span>
-            </div>
-            <div className="flex space-x-6">
-              <a href="#features" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors">Features</a>
-              <a href="#how-it-works" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors">How it Works</a>
-              <a href="#pricing" className="text-sm font-medium text-neutral-600 hover:text-black transition-colors">Pricing</a>
-            </div>
+        <div className="flex items-center mb-4 md:mb-0 md:ml-auto">
+          <Logo className="h-7 w-auto" />
+          <span className="ml-2 text-xl font-semibold text-neutral-900">{name}</span>
+        </div>
           </div>
-          <div className="mt-8 text-center md:text-left">
-            <p className="text-sm text-neutral-500">© 2024 {name}. Build your future with confidence.</p>
+          <div className="mt-8 text-center md:text-right">
+        <p className="text-sm text-neutral-500">© 2025 {name}. Build your future with confidence.</p>
           </div>
         </div>
       </footer>
