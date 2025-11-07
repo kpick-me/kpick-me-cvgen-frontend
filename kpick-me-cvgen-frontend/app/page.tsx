@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react';
 
 import {
@@ -48,7 +50,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Navigation */}
       <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -58,23 +59,17 @@ export default function Home() {
               </div>
               <span className="ml-2 text-xl font-bold text-gray-900">CVPro</span>
             </div>
-            
-            {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-700 hover:text-blue-600 transition">Features</a>
               <a href="#how-it-works" className="text-gray-700 hover:text-blue-600 transition">How it Works</a>
               <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition">Pricing</a>
             </div>
-
-            {/* Google OAuth Button */}
             <div className="hidden md:block">
               <button className="flex items-center space-x-2 bg-white border-2 border-gray-300 hover:border-blue-500 px-6 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
                 <GoogleIcon />
                 <span className="font-medium text-gray-700">Sign in with Google</span>
               </button>
             </div>
-
-            {/* Mobile Menu Button */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2"
@@ -83,8 +78,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-4 py-4 space-y-3">
@@ -99,8 +92,6 @@ export default function Home() {
           </div>
         )}
       </nav>
-
-      {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -116,8 +107,6 @@ export default function Home() {
             Get Started for Free
           </button>
         </div>
-
-        {/* Features Grid */}
         <div id="features" className="mt-24 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, idx) => (
             <div key={idx} className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-200 border border-gray-100">
@@ -127,8 +116,6 @@ export default function Home() {
             </div>
           ))}
         </div>
-
-        {/* Export Formats Section */}
         <div className="mt-24">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Export Your CV in Multiple Formats
@@ -248,8 +235,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
       <footer className="bg-gray-900 text-white mt-24 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400">© 2024 CVPro. Build your future with confidence.</p>
