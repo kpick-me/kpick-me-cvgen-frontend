@@ -65,7 +65,7 @@ export function FeaturesSection({ onGetStarted }: FeaturesSectionProps) {
             onClick={onGetStarted}
             className="inline-flex items-center px-8 py-3 border-2 border-black text-base font-medium text-white bg-black"
           >
-            Start Building Your CV - It's Free
+            Start Building Your CV – It's Free
           </button>
         </div>
       </div>
