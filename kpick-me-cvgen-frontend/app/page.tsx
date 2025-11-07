@@ -136,8 +136,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-
-        {/* Interview & Training Section */}
         <div className="mt-24 grid md:grid-cols-2 gap-8">
           <div className="bg-gradient-to-br from-purple-600 to-blue-600 p-8 rounded-2xl text-white shadow-xl">
             <div className="mb-4">
@@ -171,7 +169,6 @@ export default function Home() {
               Start Practicing
             </button>
           </div>
-
           <div className="bg-gradient-to-br from-green-600 to-teal-600 p-8 rounded-2xl text-white shadow-xl">
             <div className="mb-4">
               <BrainIcon />
@@ -205,8 +202,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-
-        {/* Dashboard Preview */}
         <div className="mt-24">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Powerful Dashboard to Track Your Progress
