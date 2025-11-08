@@ -24,7 +24,7 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
       <div className="fixed top-3.5 right-3.5 z-50 hidden md:block">
         <LanguageSwitcher />
       </div>
-      <nav className="bg-white sticky top-0 z-40 pr-24">
+      <nav className="bg-white sticky top-0 z-40 md:pr-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
