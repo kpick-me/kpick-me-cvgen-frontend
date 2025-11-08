@@ -21,3 +21,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+button, [role="button"] {
+  cursor: pointer;
+  transition: text-decoration 0.2s ease;
+}
+
+button:hover, [role="button"]:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: auto;
+}

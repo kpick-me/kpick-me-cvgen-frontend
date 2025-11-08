@@ -21,10 +21,10 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
 
   return (
     <>
-      <div className="fixed top-3.5 right-3.5 z-50 hidden md:block">
-        <LanguageSwitcher />
-      </div>
-      <nav className="bg-white sticky top-0 z-40 pr-24">
+      <nav className="bg-white sticky top-0 z-40 pr-4 md:pr-24">
+        <div className="hidden md:block absolute right-4 top-1/2 transform -translate-y-1/2">
+          <LanguageSwitcher />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
@@ -73,13 +73,15 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
               </div>
             )}
           </div>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-neutral-600"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-0 text-neutral-600 ml-auto"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
       <MobileMenu 
@@ -105,9 +107,9 @@ function MobileMenu({
   mobileMenuOpen,
   onClose
 }: { 
-  isAuthenticated: boolean; 
-  onGetStarted: () => void; 
-  onLogin: () => void; 
+  isAuthenticated: boolean;
+  onGetStarted: () => void;
+  onLogin: () => void;
   onLogout: () => void;
   onDashboard: () => void;
   mobileMenuOpen: boolean;
