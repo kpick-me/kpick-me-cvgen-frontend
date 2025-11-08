@@ -73,13 +73,15 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
               </div>
             )}
           </div>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-neutral-600"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-0 text-neutral-600 ml-auto"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
       <MobileMenu 
@@ -105,9 +107,9 @@ function MobileMenu({
   mobileMenuOpen,
   onClose
 }: { 
-  isAuthenticated: boolean; 
-  onGetStarted: () => void; 
-  onLogin: () => void; 
+  isAuthenticated: boolean;
+  onGetStarted: () => void;
+  onLogin: () => void;
   onLogout: () => void;
   onDashboard: () => void;
   mobileMenuOpen: boolean;

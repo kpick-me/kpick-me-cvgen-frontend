@@ -129,6 +129,7 @@ export const translations = {
       serverError: 'Server error',
       unauthorized: 'You are not authorized to view this page',
       forbidden: 'Access forbidden',
+      forbiddenMessage: 'You don\'t have permission to access this page. Please sign in with your Google account to continue.',
     },
   },
   uk: {
@@ -261,6 +262,7 @@ export const translations = {
       serverError: 'Помилка сервера',
       unauthorized: 'Ви не маєте доступу до цієї сторінки',
       forbidden: 'Доступ заборонено',
+      forbiddenMessage: 'У вас немає дозволу на доступ до цієї сторінки. Будь ласка, увійдіть через Google, щоб продовжити.',
     },
   },
 };
