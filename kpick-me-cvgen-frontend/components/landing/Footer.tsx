@@ -1,4 +1,7 @@
+'use client';
+
 import { Logo } from '@/components/ui/logo';
+import { useLanguage } from '@/lib/contexts/LanguageContext';
 
 interface FooterProps {
   name: string;
@@ -6,6 +9,7 @@ interface FooterProps {
 
 export function Footer({ name }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
   
   return (
     <footer className="bg-black text-white">
@@ -16,28 +20,20 @@ export function Footer({ name }: FooterProps) {
             <span className="ml-3 text-lg font-medium text-white">{name}</span>
           </div>
           <div className="flex flex-wrap justify-center gap-6">
-            <a 
-              href="https://github.com/yourusername/your-repo" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
-            >
-              GitHub
+            <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+              {t.footer.privacy}
             </a>
             <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              Documentation
+              {t.footer.terms}
             </a>
             <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              Blog
-            </a>
-            <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              Contact
+              {t.footer.contact}
             </a>
           </div>
         </div>
         <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-sm text-gray-400 text-center">
-            © {currentYear} {name}. Build your future with confidence.
+            © {currentYear} {name}. {t.footer.rights}
           </p>
         </div>
       </div>

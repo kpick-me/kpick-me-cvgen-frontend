@@ -17,10 +17,13 @@ import { useAuth } from '@/lib/hooks/useAuth';
 import { cvService, type CV } from '@/lib/services/cv.service';
 import { interviewService, type Interview } from '@/lib/services/interview.service';
 import { trainingService, type TrainingProgress } from '@/lib/services/training.service';
+import { useLanguage } from '@/lib/contexts/LanguageContext';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
 
 export default function Dashboard() {
   const router = useRouter();
   const { user, loading: authLoading, logout, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [cvs, setCvs] = useState<CV[]>([]);
   const [interviews, setInterviews] = useState<Interview[]>([]);
@@ -88,7 +91,7 @@ export default function Dashboard() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-neutral-600">Loading...</p>
+          <p className="text-neutral-600">{t.common.loading}</p>
         </div>
       </div>
     );
@@ -111,6 +114,7 @@ export default function Dashboard() {
               <span className="text-xl font-semibold">CVgen</span>
             </div>
             <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
               {user && (
                 <>
                   <div className="flex items-center space-x-2">
@@ -123,7 +127,7 @@ export default function Dashboard() {
                     onClick={logout}
                     className="text-sm text-neutral-600 hover:text-black transition-colors"
                   >
-                    Sign Out
+                    {t.nav.logout}
                   </button>
                 </>
               )}
@@ -147,7 +151,7 @@ export default function Dashboard() {
                   }`}
                 >
                   <LayoutDashboardIcon className="w-5 h-5" />
-                  <span>Dashboard</span>
+                  <span>{t.nav.dashboard}</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('cvs')}
@@ -158,7 +162,7 @@ export default function Dashboard() {
                   }`}
                 >
                   <FileTextIcon className="w-5 h-5" />
-                  <span>My CVs</span>
+                  <span>{t.nav.cvs}</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('interviews')}
@@ -169,7 +173,7 @@ export default function Dashboard() {
                   }`}
                 >
                   <VideoIcon className="w-5 h-5" />
-                  <span>Interviews</span>
+                  <span>{t.nav.interviews}</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('training')}
@@ -180,7 +184,7 @@ export default function Dashboard() {
                   }`}
                 >
                   <SkillIcon className="w-5 h-5" />
-                  <span>Training</span>
+                  <span>{t.nav.training}</span>
                 </button>
               </nav>
             </div>
@@ -190,28 +194,28 @@ export default function Dashboard() {
           <div className="flex-1">
             {activeTab === 'dashboard' && (
               <div className="space-y-6">
-                <h1 className="text-3xl font-bold text-neutral-900">Dashboard</h1>
+                <h1 className="text-3xl font-bold text-neutral-900">{t.nav.dashboard}</h1>
                 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="bg-white p-6 rounded-lg border border-neutral-200">
                     <div className="flex items-center space-x-3 mb-2">
                       <FileTextIcon className="w-5 h-5 text-blue-600" />
-                      <h3 className="text-sm font-medium text-neutral-600">CVs Created</h3>
+                      <h3 className="text-sm font-medium text-neutral-600">{t.dashboard.totalCvs}</h3>
                     </div>
                     <p className="text-3xl font-bold text-neutral-900">{stats.cvs}</p>
                   </div>
                   <div className="bg-white p-6 rounded-lg border border-neutral-200">
                     <div className="flex items-center space-x-3 mb-2">
                       <VideoIcon className="w-5 h-5 text-purple-600" />
-                      <h3 className="text-sm font-medium text-neutral-600">Interviews</h3>
+                      <h3 className="text-sm font-medium text-neutral-600">{t.dashboard.totalInterviews}</h3>
                     </div>
                     <p className="text-3xl font-bold text-neutral-900">{stats.interviews}</p>
                   </div>
                   <div className="bg-white p-6 rounded-lg border border-neutral-200">
                     <div className="flex items-center space-x-3 mb-2">
                       <SkillIcon className="w-5 h-5 text-green-600" />
-                      <h3 className="text-sm font-medium text-neutral-600">Challenges</h3>
+                      <h3 className="text-sm font-medium text-neutral-600">{t.dashboard.totalTraining}</h3>
                     </div>
                     <p className="text-3xl font-bold text-neutral-900">{stats.challenges}</p>
                   </div>
@@ -219,7 +223,7 @@ export default function Dashboard() {
 
                 {/* Recent Activity */}
                 <div className="bg-white p-6 rounded-lg border border-neutral-200">
-                  <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
+                  <h2 className="text-xl font-semibold mb-4">{t.dashboard.recentActivity}</h2>
                   <div className="space-y-3">
                     {progress.slice(0, 5).map((item) => (
                       <div key={item.id} className="flex items-center justify-between py-2 border-b border-neutral-100 last:border-0">
@@ -243,13 +247,13 @@ export default function Dashboard() {
             {activeTab === 'cvs' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-3xl font-bold text-neutral-900">My CVs</h1>
+                  <h1 className="text-3xl font-bold text-neutral-900">{t.cv.title}</h1>
                   <button
                     onClick={() => router.push('/cv/create')}
                     className="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-neutral-800 transition-colors"
                   >
                     <PlusIcon className="w-5 h-5" />
-                    <span>Create New CV</span>
+                    <span>{t.cv.createNew}</span>
                   </button>
                 </div>
 
@@ -262,17 +266,11 @@ export default function Dashboard() {
                       </p>
                       <div className="flex space-x-2">
                         <button
-                          onClick={() => router.push(`/cv/edit/${cv.id}`)}
+                          onClick={() => router.push(`/cv/${cv.id}`)}
                           className="flex-1 flex items-center justify-center space-x-1 px-3 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
                         >
                           <EditIcon className="w-4 h-4" />
-                          <span className="text-sm">Edit</span>
-                        </button>
-                        <button
-                          onClick={() => handleExportPDF(cv.id, cv.title)}
-                          className="flex items-center justify-center px-3 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
-                        >
-                          <DownloadIcon className="w-4 h-4" />
+                          <span className="text-sm">{t.common.edit}</span>
                         </button>
                         <button
                           onClick={() => handleDeleteCV(cv.id)}
@@ -286,12 +284,12 @@ export default function Dashboard() {
                   {cvs.length === 0 && (
                     <div className="col-span-full text-center py-12">
                       <FileTextIcon className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
-                      <p className="text-neutral-600 mb-4">No CVs yet</p>
+                      <p className="text-neutral-600 mb-4">{t.cv.title}</p>
                       <button
                         onClick={() => router.push('/cv/create')}
                         className="bg-black text-white px-6 py-2 rounded-lg hover:bg-neutral-800 transition-colors"
                       >
-                        Create Your First CV
+                        {t.cv.createNew}
                       </button>
                     </div>
                   )}
@@ -302,13 +300,13 @@ export default function Dashboard() {
             {activeTab === 'interviews' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-3xl font-bold text-neutral-900">Interview Practice</h1>
+                  <h1 className="text-3xl font-bold text-neutral-900">{t.interviews.title}</h1>
                   <button
                     onClick={() => router.push('/interviews/start')}
                     className="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-neutral-800 transition-colors"
                   >
                     <PlusIcon className="w-5 h-5" />
-                    <span>Start Interview</span>
+                    <span>{t.interviews.startInterview}</span>
                   </button>
                 </div>
 
@@ -324,7 +322,7 @@ export default function Dashboard() {
                         </div>
                         <div className="text-right">
                           <div className="text-2xl font-bold text-blue-600">{interview.overallScore}%</div>
-                          <p className="text-sm text-neutral-500">Score</p>
+                          <p className="text-sm text-neutral-500">{t.interviews.score}</p>
                         </div>
                       </div>
                       <button
@@ -338,12 +336,12 @@ export default function Dashboard() {
                   {interviews.length === 0 && (
                     <div className="text-center py-12 bg-white rounded-lg border border-neutral-200">
                       <VideoIcon className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
-                      <p className="text-neutral-600 mb-4">No interviews yet</p>
+                      <p className="text-neutral-600 mb-4">{t.interviews.title}</p>
                       <button
                         onClick={() => router.push('/interviews/start')}
                         className="bg-black text-white px-6 py-2 rounded-lg hover:bg-neutral-800 transition-colors"
                       >
-                        Start Your First Interview
+                        {t.interviews.startInterview}
                       </button>
                     </div>
                   )}
@@ -354,17 +352,17 @@ export default function Dashboard() {
             {activeTab === 'training' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-3xl font-bold text-neutral-900">Skills Training</h1>
+                  <h1 className="text-3xl font-bold text-neutral-900">{t.training.title}</h1>
                   <button
                     onClick={() => router.push('/training')}
                     className="bg-black text-white px-4 py-2 rounded-lg hover:bg-neutral-800 transition-colors"
                   >
-                    Browse Challenges
+                    {t.training.startTraining}
                   </button>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg border border-neutral-200">
-                  <h2 className="text-xl font-semibold mb-4">Your Progress</h2>
+                  <h2 className="text-xl font-semibold mb-4">{t.dashboard.recentActivity}</h2>
                   <div className="space-y-3">
                     {progress.map((item) => (
                       <div key={item.id} className="flex items-center justify-between py-3 border-b border-neutral-100 last:border-0">

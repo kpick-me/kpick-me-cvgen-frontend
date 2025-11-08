@@ -19,6 +19,7 @@ export const authService = {
 
   setToken(token: string) {
     localStorage.setItem('auth_token', token);
+    document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}`;
   },
 
   getToken() {
@@ -27,6 +28,7 @@ export const authService = {
 
   logout() {
     localStorage.removeItem('auth_token');
+    document.cookie = 'auth_token=; path=/; max-age=0';
     window.location.href = '/';
   },
 

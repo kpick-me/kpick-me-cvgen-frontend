@@ -5,6 +5,8 @@ import { MenuIcon, XIcon, ChevronRightIcon } from '@/components/ui/icons';
 import { Logo } from '@/components/ui/logo';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { Button } from '@/components/ui/button';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import { useLanguage } from '@/lib/contexts/LanguageContext';
 
 interface NavigationProps {
   mobileMenuOpen: boolean;
@@ -15,6 +17,7 @@ interface NavigationProps {
 export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: NavigationProps) {
   const { user, login, logout, isAuthenticated } = useAuth();
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <nav className="bg-white sticky top-0 z-50">
@@ -26,20 +29,21 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
             </a>
           </div>
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
             {isAuthenticated ? (
               <>
                 <button 
                   onClick={() => router.push('/dashboard')}
                   className="text-sm font-medium text-black hover:text-black/80 transition-colors"
                 >
-                  Dashboard
+                  {t.nav.dashboard}
                 </button>
                 <Button 
                   variant="outline"
                   size="sm"
                   onClick={logout}
                 >
-                  Sign Out
+                  {t.nav.logout}
                 </Button>
                 {user?.avatar && (
                   <img 
@@ -55,13 +59,13 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
                   onClick={login}
                   className="text-sm font-medium text-black hover:text-black/80 transition-colors"
                 >
-                  Sign in
+                  {t.nav.login}
                 </button>
                 <Button 
                   onClick={onGetStarted}
                   className="px-4 text-base rounded-full"
                 >
-                  Get Started
+                  {t.hero.cta}
                 </Button>
               </div>
             )}
@@ -101,22 +105,27 @@ function MobileMenu({
   onLogout: () => void;
   onDashboard: () => void;
 }) {
+  const { t } = useLanguage();
+  
   return (
     <div className="md:hidden bg-white">
       <div className="px-4 py-4 space-y-3">
+        <div className="flex justify-center mb-4">
+          <LanguageSwitcher />
+        </div>
         {isAuthenticated ? (
           <div className="space-y-3">
             <button 
               onClick={onDashboard}
               className="w-full text-left text-base font-medium text-black/90 hover:text-black py-2"
             >
-              Dashboard
+              {t.nav.dashboard}
             </button>
             <button 
               onClick={onLogout}
               className="w-full text-left text-base font-medium text-black/90 hover:text-black py-2"
             >
-              Sign Out
+              {t.nav.logout}
             </button>
           </div>
         ) : (
@@ -125,13 +134,13 @@ function MobileMenu({
               onClick={onGetStarted}
               className="w-full bg-black text-white px-4 py-3 rounded-full font-medium text-base"
             >
-              Get Started
+              {t.hero.cta}
             </button>
             <button 
               onClick={onLogin}
               className="w-full text-center text-base font-medium text-black/90 hover:text-black py-2"
             >
-              Sign in
+              {t.nav.login}
             </button>
           </div>
         )}
