@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KPIck-me | AI-Powered CV Generator & Interview Simulator",
+  title: "AdvancedCV | AI-Powered CV Generator & Interview Simulator",
   description: "Build professional CVs with AI, practice interviews, and improve your skills. Google OAuth authentication for secure access.",
 };
 
