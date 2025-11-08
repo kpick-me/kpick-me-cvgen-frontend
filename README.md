@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KPick-Me CV Generator - Frontend
 
-## Getting Started
+AI-powered job search platform helping students find employment through CV generation, interview simulation, and skills training.
 
-First, run the development server:
+## Technologies
+
+- Next.js 15 + TypeScript
+- React 19
+- TailwindCSS
+- Google OAuth authentication
+- Axios for API calls
+
+## Quick Start
+
+```bash
+npm install
+npm run dev
+```
+
+Frontend runs at `http://localhost:3000`
+
+## Environment Variables
+
+Create `.env.local` file:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+## Features
+
+### Authentication
+- Google OAuth login
+- Secure JWT token storage
+- Automatic redirect on unauthorized access
+
+### Dashboard
+- User statistics and progress
+- CV management
+- Interview history
+- Training progress
+
+### CV Builder
+- Wizard with validation
+- 3 templates: Modern, Classic, Creative
+- AI generation and enhancement
+- Export to PDF, DOCX, JSON
+
+### Interview Simulator
+- 8 interview questions
+- Timer tracking
+- Feedback and scoring
+- Summary report
+
+### Training
+- JavaScript, TypeScript, React quizzes
+- Progress tracking
+- Score calculation
+
+## Error Pages
+
+### 403 Forbidden (`/403`)
+- Shown when user lacks permission
+- Option to sign in with Google
+- Back to home button
+
+### 401 Unauthorized (`/unauthorized`)
+- Shown when authentication required
+- Google OAuth sign-in button
+- Redirected automatically when accessing protected routes
+
+### 404 Not Found (`/not-found`)
+- Custom 404 page
+- Navigation to popular pages
+- Back to home button
+
+## Protected Routes
+
+The following routes require authentication:
+- `/dashboard`
+- `/interviews`
+- `/training`
+
+Middleware automatically redirects unauthenticated users to `/unauthorized`.
+
+## Authentication Flow
+
+1. User clicks "Sign in with Google" on any page
+2. Redirected to backend: `${API_URL}/auth/google`
+3. Google OAuth consent screen
+4. Backend handles OAuth callback
+5. Redirected to: `/auth/success?token=JWT_TOKEN`
+6. Token stored in localStorage and cookies
+7. User redirected to `/dashboard`
+
+## API Integration
+
+All API calls use axios with interceptors:
+- Automatically adds JWT token to requests
+- Handles 401 errors (redirect to `/unauthorized`)
+- Handles 403 errors (redirect to `/403`)
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+├── 403/              # Forbidden page
+├── unauthorized/     # Unauthorized page
+├── not-found.tsx     # 404 page
+├── auth/
+│   └── success/      # OAuth callback handler
+├── dashboard/        # Main dashboard
+├── interviews/       # Interview simulator
+└── training/         # Skills training
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+components/
+├── landing/          # Landing page components
+└── ui/               # Reusable UI components
 
-## Learn More
+lib/
+├── api.ts            # Axios configuration
+├── hooks/
+│   └── useAuth.tsx   # Authentication hook
+└── services/         # API service layers
 
-To learn more about Next.js, take a look at the following resources:
+middleware.ts         # Route protection
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Production Build
+```bash
+npm run build
+npm run start
+```
 
-## Deploy on Vercel
+### Environment Variables
+Set `NEXT_PUBLIC_API_URL` to your backend URL in production.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
