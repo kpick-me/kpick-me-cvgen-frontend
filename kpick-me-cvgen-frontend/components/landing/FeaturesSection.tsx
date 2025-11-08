@@ -1,44 +1,40 @@
+'use client';
+
 import { FileTextIcon, VideoIcon, UserIcon } from '@/components/ui/icons';
-
-interface FeatureItem {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
-
-const features: FeatureItem[] = [
-  {
-    icon: <FileTextIcon className="w-8 h-8" />,
-    title: "AI-Powered CV Builder",
-    description: "Create professional CVs with AI-powered suggestions and beautiful templates.",
-  },
-  {
-    icon: <VideoIcon className="w-8 h-8" />,
-    title: "Mock Interviews",
-    description: "Practice with AI-driven mock interviews and get instant feedback.",
-  },
-  {
-    icon: <UserIcon className="w-8 h-8" />,
-    title: "Skill Assessment",
-    description: "Test and improve your skills with interactive challenges.",
-  }
-];
+import { useLanguage } from '@/lib/contexts/LanguageContext';
 
 interface FeaturesSectionProps {
   onGetStarted: () => void;
 }
 
 export function FeaturesSection({ onGetStarted }: FeaturesSectionProps) {
+  const { t } = useLanguage();
+  
+  const features = [
+    {
+      icon: <FileTextIcon className="w-8 h-8" />,
+      title: t.features.aiPowered,
+      description: t.features.aiDesc,
+    },
+    {
+      icon: <VideoIcon className="w-8 h-8" />,
+      title: t.features.interviewPractice,
+      description: t.features.interviewDesc,
+    },
+    {
+      icon: <UserIcon className="w-8 h-8" />,
+      title: t.features.multipleTemplates,
+      description: t.features.templatesDesc,
+    }
+  ];
+  
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-16" id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-black sm:text-4xl">
-            Everything you need to land your dream job
+            {t.hero.features}
           </h2>
-          <p className="mt-4 text-lg text-black/90 max-w-2xl mx-auto">
-            Our platform helps you prepare for your job search from start to finish.
-          </p>
         </div>
         
         <div className="grid grid-cols-1 divide-y-2 divide-black/10 md:divide-y-0 md:grid-cols-3 md:divide-x-2">
@@ -65,7 +61,7 @@ export function FeaturesSection({ onGetStarted }: FeaturesSectionProps) {
             onClick={onGetStarted}
             className="inline-flex items-center px-8 py-3 border-2 border-black text-base font-medium text-white bg-black"
           >
-            Start Building Your CV – It's Free
+            {t.hero.cta}
           </button>
         </div>
       </div>

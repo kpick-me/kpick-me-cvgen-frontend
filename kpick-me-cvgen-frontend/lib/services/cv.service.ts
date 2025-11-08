@@ -1,4 +1,5 @@
 import { api } from '../api';
+import { generatePDFFromElement, generateDOCX, downloadJSON } from '../utils/pdf-generator';
 
 export interface CV {
   id: string;
@@ -9,8 +10,11 @@ export interface CV {
     education: any[];
     skills: any[];
     languages: any[];
+    projects?: any[];
   };
   templateId?: string;
+  template?: string;
+  content?: any;
   createdAt: string;
   updatedAt: string;
 }
@@ -40,27 +44,52 @@ export const cvService = {
     await api.delete(`/cv/${id}`);
   },
 
-  async exportPDF(id: string): Promise<Blob> {
-    const { data } = await api.get(`/cv/${id}/export/pdf`, {
-      responseType: 'blob',
-    });
-    return data;
+  async exportPDF(elementId: string = 'cv-content', filename: string = 'cv.pdf'): Promise<void> {
+    await generatePDFFromElement(elementId, filename);
   },
 
-  async exportDOCX(id: string): Promise<Blob> {
-    const { data } = await api.get(`/cv/${id}/export/docx`, {
-      responseType: 'blob',
-    });
-    return data;
+  async exportDOCX(cvData: any, filename: string = 'cv.docx'): Promise<void> {
+    await generateDOCX(cvData, filename);
   },
 
-  async exportJSON(id: string): Promise<string> {
-    const { data } = await api.get(`/cv/${id}/export/json`);
-    return data;
+  async exportJSON(cvData: any, filename: string = 'cv.json'): Promise<void> {
+    downloadJSON(cvData, filename);
   },
 
   async generateShareLink(id: string): Promise<{ link: string }> {
     const { data } = await api.get(`/cv/${id}/share`);
+    return data;
+  },
+
+  async generateWithAi(data: any): Promise<CV> {
+    const { data: result } = await api.post('/cv/generate-with-ai', data);
+    return result;
+  },
+
+  async enhanceWithAi(id: string, options?: any): Promise<CV> {
+    const { data } = await api.post(`/cv/${id}/enhance-with-ai`, options);
+    return data;
+  },
+
+  async optimizeForJob(id: string, jobDescription: string): Promise<CV> {
+    const { data } = await api.post(`/cv/${id}/optimize-for-job`, { jobDescription });
+    return data;
+  },
+
+  async getTemplates(): Promise<any[]> {
+    const { data } = await api.get('/cv/templates');
+    return data;
+  },
+
+  async createFromWizard(wizardData: any): Promise<CV> {
+    const { data } = await api.post('/cv/wizard', wizardData);
+    return data;
+  },
+
+  async previewCv(id: string, template?: string): Promise<any> {
+    const { data } = await api.get(`/cv/${id}/preview`, {
+      params: { template },
+    });
     return data;
   },
 };
