@@ -34,7 +34,7 @@ export default function Home() {
         <HeroSection onGetStarted={handleGetStarted} />
         <FeaturesSection onGetStarted={handleGetStarted} />
       </main>
-      <Footer name="CVgen" />
+      <Footer name="AdvancedCV" />
     </div>
   );
 }

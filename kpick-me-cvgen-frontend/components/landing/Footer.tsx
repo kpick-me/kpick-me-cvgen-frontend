@@ -20,14 +20,8 @@ export function Footer({ name }: FooterProps) {
             <span className="ml-3 text-lg font-medium text-white">{name}</span>
           </div>
           <div className="flex flex-wrap justify-center gap-6">
-            <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              {t.footer.privacy}
-            </a>
-            <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              {t.footer.terms}
-            </a>
-            <a href="#" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              {t.footer.contact}
+            <a href="https://github.com/kpick-me/" target='_blank' className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+              GitHub
             </a>
           </div>
         </div>

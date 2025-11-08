@@ -253,9 +253,6 @@ export const translations = {
     },
     footer: {
       rights: 'Всі права захищені',
-      privacy: 'Політика конфіденційності',
-      terms: 'Умови використання',
-      contact: 'Контакти',
     },
     errors: {
       notFound: 'Сторінку не знайдено',
