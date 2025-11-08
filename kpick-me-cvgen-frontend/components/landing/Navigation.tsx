@@ -20,17 +20,20 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
   const { t } = useLanguage();
 
   return (
-    <nav className="bg-white sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-8">
-            <a href="#top" className="flex items-center">
-              <Logo className="h-7 w-auto" />
-            </a>
-          </div>
-          <div className="hidden md:flex items-center space-x-4">
-            <LanguageSwitcher />
-            {isAuthenticated ? (
+    <>
+      <div className="fixed top-3.5 right-3.5 z-50 hidden md:block">
+        <LanguageSwitcher />
+      </div>
+      <nav className="bg-white sticky top-0 z-40 pr-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-8">
+              <a href="#top" className="flex items-center">
+                <Logo className="h-7 w-auto" />
+              </a>
+            </div>
+            <div className="hidden md:flex items-center space-x-4">
+              {isAuthenticated ? (
               <>
                 <button 
                   onClick={() => router.push('/dashboard')}
@@ -79,16 +82,17 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen, onGetStarted }: 
           </button>
         </div>
       </div>
-      {mobileMenuOpen && (
-        <MobileMenu 
-          isAuthenticated={isAuthenticated} 
-          onGetStarted={onGetStarted} 
-          onLogin={login} 
-          onLogout={logout} 
-          onDashboard={() => router.push('/dashboard')}
-        />
-      )}
+      <MobileMenu 
+        isAuthenticated={isAuthenticated} 
+        onGetStarted={onGetStarted} 
+        onLogin={login} 
+        onLogout={logout} 
+        onDashboard={() => router.push('/dashboard')}
+        mobileMenuOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
     </nav>
+    </>
   );
 }
 
@@ -97,22 +101,34 @@ function MobileMenu({
   onGetStarted, 
   onLogin, 
   onLogout,
-  onDashboard 
+  onDashboard,
+  mobileMenuOpen,
+  onClose
 }: { 
   isAuthenticated: boolean; 
   onGetStarted: () => void; 
   onLogin: () => void; 
   onLogout: () => void;
   onDashboard: () => void;
+  mobileMenuOpen: boolean;
+  onClose: () => void;
 }) {
   const { t } = useLanguage();
   
   return (
-    <div className="md:hidden bg-white">
-      <div className="px-4 py-4 space-y-3">
-        <div className="flex justify-center mb-4">
-          <LanguageSwitcher />
-        </div>
+    <>
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+          onClick={onClose}
+        />
+      )}
+      <div 
+        className={`fixed top-0 right-0 h-full w-64 bg-white z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
+          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="px-6 py-4 space-y-3 flex-1 overflow-y-auto">
         {isAuthenticated ? (
           <div className="space-y-3">
             <button 
@@ -144,7 +160,13 @@ function MobileMenu({
             </button>
           </div>
         )}
+        </div>
+        <div className="p-4 border-t border-gray-200">
+          <div className="flex justify-center">
+            <LanguageSwitcher />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
